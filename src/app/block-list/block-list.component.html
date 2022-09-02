@@ -1,0 +1,5 @@
+<div *ngFor="let block of (blockList$ | async)">
+  <span>{{ block.level }}</span>
+  <span>{{ block.timestamp }}</span>
+  <span *ngIf="block.proposer">{{ block.proposer.alias }}</span>
+</div>

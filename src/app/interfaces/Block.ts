@@ -1,11 +1,11 @@
 export interface Block {
   level: number;
-  proposer?: Proposer;
+  proposer?: User;
   timestamp: string;
-
+  transactionCount: number;
 }
 
-interface Proposer {
+export interface User {
   alias: string;
   address: string;
 }

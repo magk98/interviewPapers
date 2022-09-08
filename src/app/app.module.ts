@@ -5,16 +5,18 @@ import {AppComponent} from './app.component';
 import {BlockListComponent} from './block-list/block-list.component';
 import {AppRoutingModule} from "./app-routing.module";
 import {HttpClientModule} from "@angular/common/http";
+import {BlockDetailsComponent} from './block-details/block-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BlockListComponent
+    BlockListComponent,
+    BlockDetailsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

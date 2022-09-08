@@ -1,5 +1,23 @@
-<div *ngFor="let block of (blockList$ | async)">
-  <span>{{ block.level }}</span>
-  <span>{{ block.timestamp }}</span>
-  <span *ngIf="block.proposer">{{ block.proposer.alias }}</span>
+<div class="table">
+  <div class="table-titles">
+    <span class="table-element-info">Block level</span>
+    <span class="table-element-info">Block timestamp</span>
+    <span class="table-element-info">Block proposer alias</span>
+    <span class="table-element-info">Block proposer address</span>
+    <span class="table-element-info">Block transactions count</span>
+  </div>
+  <div class="table-element" *ngFor="let block of (blockList$ | async)"
+       (click)="goToBlockDetails(block.level)">
+    <span class="table-element-info">{{ block.level }}</span>
+    <span class="table-element-info">{{ block.timestamp }}</span>
+    <span class="table-element-info">{{ block.proposer?.alias || 'N/A' }}</span>
+    <span class="table-element-info">{{ block.proposer?.address || 'N/A' }}</span>
+  </div>
 </div>
+
+<button [disabled]="this.page$.getValue() === 1" (click)="loadPreviousPage()">
+  Previous page
+</button>
+<button (click)="loadNextPage()">
+  Next page
+</button>

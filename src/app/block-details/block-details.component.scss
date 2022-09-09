@@ -1,5 +1,4 @@
 .table {
-
   &-titles, &-element {
     display: grid;
     grid-template-columns: 1fr 2fr 1fr 2fr 0.8fr 0.8fr;
@@ -27,4 +26,10 @@ header {
     font-size: 22px;
     margin: auto;
   }
+}
+
+.empty-transactions {
+  display: flex;
+  justify-content: center;
+  margin: 48px;
 }

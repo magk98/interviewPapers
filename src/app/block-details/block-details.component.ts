@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {ApiProviderService, pageCount} from "../services/api-provider.service";
 import {ActivatedRoute} from "@angular/router";
 import {BehaviorSubject, map, Observable, switchMap} from "rxjs";
@@ -12,7 +12,7 @@ const PARAM_ID = 'id';
   templateUrl: './block-details.component.html',
   styleUrls: ['../block-list/block-list.component.scss', './block-details.component.scss']
 })
-export class BlockDetailsComponent implements OnInit {
+export class BlockDetailsComponent {
   public id = this.activatedRoute.snapshot.paramMap.get(PARAM_ID);
 
   public page$ = new BehaviorSubject<number>(0);
@@ -26,8 +26,6 @@ export class BlockDetailsComponent implements OnInit {
     this.isLastPage$ = this.transactionsList$.pipe(map(list => list.length <= pageCount));
   }
 
-  ngOnInit(): void {
-  }
 
   public loadNextPage(): void {
     this.page$.next(this.page$.getValue() + 1);

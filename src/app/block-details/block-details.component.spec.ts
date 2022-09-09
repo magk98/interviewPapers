@@ -1,4 +1,4 @@
-import {ComponentFixture, fakeAsync, TestBed} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {BlockDetailsComponent} from './block-details.component';
 import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {CommonModule} from "@angular/common";
@@ -35,7 +35,7 @@ describe('BlockDetailsComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should display one transaction in table', fakeAsync(() => {
+  it('should display one transaction in table', () => {
     const transaction: Transaction[] = [{
       sender: {
         address: "tz1NKVAxzJusWgKewn4LEViPSQVRE5Kg6XFV"
@@ -52,6 +52,15 @@ describe('BlockDetailsComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.debugElement.queryAll(By.css('.table-element'));
     expect(compiled.length).toEqual(1);
-  }))
+  });
 
+  it('should display text if no transactions recorded', () => {
+    const transaction: Transaction[] = [];
+    const fixture = TestBed.createComponent(BlockDetailsComponent);
+    apiServiceMockup.getBlockTransactionsList.and.returnValue(of(transaction));
+    fixture.detectChanges();
+    const compiled = fixture.debugElement;
+    expect(compiled.nativeElement.querySelector('.empty-transactions').textContent)
+      .toEqual('No transactions recorded');
+  });
 });

@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {forkJoin, map, mergeMap, Observable} from "rxjs";
-import {Block} from "../interfaces/Block";
-import {Transaction} from "../interfaces/Transaction";
+import {Block} from "../interfaces/block";
+import {Transaction} from "../interfaces/transaction";
 
 export const pageCount = 100;
 const basicUrl = 'https://api.tzkt.io/v1';
@@ -23,8 +23,8 @@ export class ApiProviderService {
       .pipe(mergeMap(result => forkJoin(...result.map(block => this.getTransactionsCount(block)))));
   }
 
-  public getTransactionsCount(block: Block): Observable<any> {
-    return this.httpClient.get(basicTransactionsUrl + '/count', {params: {level: block.level}})
+  public getTransactionsCount(block: Block): Observable<Block> {
+    return this.httpClient.get<number>(basicTransactionsUrl + '/count', {params: {level: block.level}})
       .pipe(map(count => {
         return {...block, transactionCount: count}
       }));

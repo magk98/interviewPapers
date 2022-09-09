@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {ApiProviderService} from "../services/api-provider.service";
 import {Router} from "@angular/router";
-import {Block} from "../interfaces/Block";
+import {Block} from "../interfaces/block";
 import {BehaviorSubject, Observable, switchMap} from "rxjs";
 
 @Component({
@@ -10,7 +10,8 @@ import {BehaviorSubject, Observable, switchMap} from "rxjs";
   styleUrls: ['./block-list.component.scss']
 })
 export class BlockListComponent {
-  public blockList$: Observable<Block[]>;
+  public readonly blockList$: Observable<Block[]>;
+
   public page$ = new BehaviorSubject<number>(0);
 
   constructor(public apiService: ApiProviderService,
@@ -23,11 +24,11 @@ export class BlockListComponent {
   }
 
   public loadNextPage(): void {
-    this.page$.next(this.page$.getValue() + 1);
+    this.page$.next(this.page$.value + 1);
   }
 
   public loadPreviousPage(): void {
-    this.page$.next(this.page$.getValue() > 1 ? this.page$.getValue() - 1 : 0);
+    this.page$.next(this.page$.value > 1 ? this.page$.value - 1 : 0);
   }
 
 }

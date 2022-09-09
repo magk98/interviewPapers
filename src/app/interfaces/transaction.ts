@@ -1,4 +1,4 @@
-import {User} from "./Block";
+import {User} from "./block";
 
 export interface Transaction {
   sender?: User;

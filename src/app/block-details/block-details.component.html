@@ -1,39 +1,44 @@
-<header>
-  <button (click)="goBack()">Go back</button>
-  <div class="title">Block {{id}}</div>
-</header>
+<ng-container *ngIf="(transactionsList$ | async) as transactionsList; else empty">
+  <header>
+    <button (click)="goBack()">Go back</button>
+    <div class="title">Block {{level}}</div>
+  </header>
 
-<ng-container *ngIf="(transactionsList$ | async)?.length! > 0">
-  <div class="table">
-    <div class="table-titles">
-      <span class="table-element-info">Sender alias</span>
-      <span class="table-element-info">Sender address</span>
-      <span class="table-element-info">Target alias</span>
-      <span class="table-element-info">Target address</span>
-      <span class="table-element-info">Amount</span>
-      <span class="table-element-info">Status</span>
+  <ng-container *ngIf="transactionsList.length > 0">
+    <div class="table">
+      <div class="table-titles">
+        <span class="table-element-info">Sender alias</span>
+        <span class="table-element-info">Sender address</span>
+        <span class="table-element-info">Target alias</span>
+        <span class="table-element-info">Target address</span>
+        <span class="table-element-info">Amount</span>
+        <span class="table-element-info">Status</span>
+      </div>
+      <div class="table-element" *ngFor="let transaction of (transactionsList$ | async)">
+        <span class="table-element-info">{{ transaction.sender?.alias || 'N/A' }}</span>
+        <span class="table-element-info">{{ transaction.sender?.address || 'N/A' }}</span>
+        <span class="table-element-info">{{ transaction.target?.alias || 'N/A' }}</span>
+        <span class="table-element-info">{{ transaction.target?.address || 'N/A' }}</span>
+        <span class="table-element-info">{{ transaction.amount }}</span>
+        <span class="table-element-info">{{ transaction.status }}</span>
+      </div>
     </div>
-    <div class="table-element" *ngFor="let transaction of (transactionsList$ | async)">
-      <span class="table-element-info">{{ transaction.sender?.alias || 'N/A' }}</span>
-      <span class="table-element-info">{{ transaction.sender?.address || 'N/A' }}</span>
-      <span class="table-element-info">{{ transaction.target?.alias || 'N/A' }}</span>
-      <span class="table-element-info">{{ transaction.target?.address || 'N/A' }}</span>
-      <span class="table-element-info">{{ transaction.amount }}</span>
-      <span class="table-element-info">{{ transaction.status }}</span>
+    <button [disabled]="(this.page$ | async) === 0" (click)="loadPreviousPage()">
+      Previous page
+    </button>
+    <button [disabled]="isLastPage$ | async" (click)="loadNextPage()">
+      Next page
+    </button>
+  </ng-container>
+
+  <ng-container *ngIf="transactionsList.length === 0">
+    <div class="empty-transactions">
+      No transactions recorded
     </div>
-  </div>
-  <button [disabled]="!this.page$.getValue()" (click)="loadPreviousPage()">
-    Previous page
-  </button>
-  <button [disabled]="isLastPage$ | async" (click)="loadNextPage()">
-    Next page
-  </button>
+  </ng-container>
+
 </ng-container>
 
-<ng-container *ngIf="(transactionsList$ | async)?.length === 0">
-  <div class="empty-transactions">
-    No transactions recorded
-  </div>
-</ng-container>
-
-
+<ng-template #empty>
+  No block available
+</ng-template>

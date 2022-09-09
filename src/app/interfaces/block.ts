@@ -2,7 +2,7 @@ export interface Block {
   level: number;
   proposer?: User;
   timestamp: string;
-  transactionCount: number;
+  transactionCount?: number;
 }
 
 export interface User {

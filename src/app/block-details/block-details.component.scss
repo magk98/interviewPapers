@@ -7,5 +7,24 @@
 
   &-element {
     cursor: auto;
+
+    &-info {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-left: 2px;
+      margin-right: 2px;
+    }
+  }
+}
+
+header {
+  display: flex;
+  align-items: center;
+
+  & > .title {
+    font-weight: bold;
+    font-size: 22px;
+    margin: auto;
   }
 }

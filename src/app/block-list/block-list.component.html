@@ -1,3 +1,6 @@
+<header>TZKT blocks</header>
+
+
 <div class="table">
   <div class="table-titles">
     <span class="table-element-info">Block level</span>
@@ -12,10 +15,11 @@
     <span class="table-element-info">{{ block.timestamp }}</span>
     <span class="table-element-info">{{ block.proposer?.alias || 'N/A' }}</span>
     <span class="table-element-info">{{ block.proposer?.address || 'N/A' }}</span>
+    <span class="table-element-info">{{ block.transactionCount || 0 }}</span>
   </div>
 </div>
 
-<button [disabled]="this.page$.getValue() === 1" (click)="loadPreviousPage()">
+<button [disabled]="!this.page$.getValue()" (click)="loadPreviousPage()">
   Previous page
 </button>
 <button (click)="loadNextPage()">

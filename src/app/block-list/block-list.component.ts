@@ -11,7 +11,7 @@ import {BehaviorSubject, Observable, switchMap} from "rxjs";
 })
 export class BlockListComponent {
   public blockList$: Observable<Block[]>;
-  public page$ = new BehaviorSubject<number>(1);
+  public page$ = new BehaviorSubject<number>(0);
 
   constructor(public apiService: ApiProviderService,
               public router: Router) {
@@ -27,7 +27,7 @@ export class BlockListComponent {
   }
 
   public loadPreviousPage(): void {
-    this.page$.next(this.page$.getValue() > 2 ? this.page$.getValue() - 1 : 1);
+    this.page$.next(this.page$.getValue() > 1 ? this.page$.getValue() - 1 : 0);
   }
 
 }

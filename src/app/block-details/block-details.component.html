@@ -1,3 +1,8 @@
+<header>
+  <button (click)="goBack()">Go back</button>
+  <div class="title">Block {{id}}</div>
+</header>
+
 <ng-container *ngIf="(transactionsList$ | async)?.length! > 0">
   <div class="table">
     <div class="table-titles">
@@ -17,7 +22,7 @@
       <span class="table-element-info">{{ transaction.status }}</span>
     </div>
   </div>
-  <button [disabled]="this.page$.getValue() === 1" (click)="loadPreviousPage()">
+  <button [disabled]="!this.page$.getValue()" (click)="loadPreviousPage()">
     Previous page
   </button>
   <button [disabled]="isLastPage$ | async" (click)="loadNextPage()">
